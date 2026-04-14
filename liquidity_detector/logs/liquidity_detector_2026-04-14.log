@@ -1,0 +1,189 @@
+2026-04-14 16:16:25.356 | INFO     | __main__:_run:125 | ============================================================
+2026-04-14 16:16:25.357 | INFO     | __main__:_run:126 | LIQUIDITY DETECTOR - Starting
+2026-04-14 16:16:25.357 | INFO     | __main__:_run:127 | ============================================================
+2026-04-14 16:16:25.358 | INFO     | __main__:_run:128 | Symbol: BTCUSDT
+2026-04-14 16:16:25.358 | INFO     | __main__:_run:129 | Category: linear
+2026-04-14 16:16:25.358 | INFO     | __main__:_run:130 | Depth: 50
+2026-04-14 16:16:25.358 | INFO     | __main__:_run:131 | Delta Window: 60.0s
+2026-04-14 16:16:25.358 | INFO     | __main__:_run:132 | Delta Threshold: $50,000.00
+2026-04-14 16:16:25.358 | INFO     | __main__:_run:133 | Price Change Threshold: 0.5%
+2026-04-14 16:16:25.358 | INFO     | __main__:_run:134 | Spoof Size Threshold: $100,000.00
+2026-04-14 16:16:25.358 | INFO     | __main__:_run:135 | Spoof Lifetime: 0.5s
+2026-04-14 16:16:25.359 | INFO     | __main__:_run:136 | ============================================================
+2026-04-14 16:16:25.359 | INFO     | __main__:_run:140 | Sending test message to Telegram...
+2026-04-14 16:16:26.111 | ERROR    | alerter:_send_request:88 | Telegram API error 404: {"ok":false,"error_code":404,"description":"Not Found"}
+2026-04-14 16:16:26.111 | WARNING  | __main__:_run:145 | ⚠️ Failed to send test message - check Telegram credentials
+2026-04-14 16:16:26.114 | INFO     | __main__:_run:150 | Starting components...
+2026-04-14 16:16:26.114 | INFO     | ws_client:start:129 | Starting WebSocket client...
+2026-04-14 16:16:26.114 | INFO     | ws_client:_run_connection:92 | Connecting to wss://stream.bybit.com/v5/public/linear...
+2026-04-14 16:16:26.230 | INFO     | ws_client:_run_connection:100 | WebSocket connected
+2026-04-14 16:16:26.230 | INFO     | ws_client:_send_subscribe:44 | Subscribed to channels: orderbook.50.BTCUSDT, publicTrade.BTCUSDT
+2026-04-14 16:16:26.235 | INFO     | ws_client:_handle_message:59 | Subscription confirmed
+2026-04-14 16:16:28.115 | INFO     | __main__:_run:176 | All components started
+2026-04-14 16:16:28.115 | INFO     | __main__:_run:177 | Monitoring for anomalies...
+2026-04-14 16:16:28.115 | INFO     | __main__:_ws_consumer:73 | WebSocket consumer started
+2026-04-14 16:16:28.117 | INFO     | alerter:alerter_worker:205 | Alerter worker started
+2026-04-14 16:16:29.254 | INFO     | __main__:signal_handler:228 | Received signal SIGTERM
+2026-04-14 16:16:29.255 | INFO     | __main__:shutdown:186 | Initiating graceful shutdown...
+2026-04-14 16:16:29.256 | INFO     | ws_client:stop:134 | Stopping WebSocket client...
+2026-04-14 16:16:29.256 | INFO     | __main__:_run:182 | Shutdown signal received
+2026-04-14 16:16:29.257 | INFO     | __main__:_ws_consumer:107 | WebSocket consumer cancelled
+2026-04-14 16:16:29.257 | INFO     | __main__:_ws_consumer:113 | WebSocket consumer stopped
+2026-04-14 16:16:29.258 | INFO     | alerter:alerter_worker:225 | Alerter worker cancelled
+2026-04-14 16:16:29.258 | INFO     | alerter:alerter_worker:231 | Alerter worker stopped
+2026-04-14 16:16:29.259 | INFO     | __main__:run:249 | Event loop closed
+2026-04-14 16:23:02.160 | INFO     | __main__:_run:164 | ============================================================
+2026-04-14 16:23:02.172 | INFO     | __main__:_run:165 | LIQUIDITY DETECTOR - Starting
+2026-04-14 16:23:02.172 | INFO     | __main__:_run:166 | ============================================================
+2026-04-14 16:23:02.172 | INFO     | __main__:_run:167 | Symbol: BTCUSDT
+2026-04-14 16:23:02.172 | INFO     | __main__:_run:168 | Category: linear
+2026-04-14 16:23:02.173 | INFO     | __main__:_run:169 | Depth: 50
+2026-04-14 16:23:02.173 | INFO     | __main__:_run:170 | Delta Window: 60.0s
+2026-04-14 16:23:02.173 | INFO     | __main__:_run:171 | Delta Threshold: $50,000.00
+2026-04-14 16:23:02.173 | INFO     | __main__:_run:172 | Price Change Threshold: 0.5%
+2026-04-14 16:23:02.173 | INFO     | __main__:_run:173 | Spoof Size Threshold: $100,000.00
+2026-04-14 16:23:02.173 | INFO     | __main__:_run:174 | Spoof Lifetime: 0.5s
+2026-04-14 16:23:02.173 | INFO     | __main__:_run:175 | ============================================================
+2026-04-14 16:23:02.176 | INFO     | __main__:_run:182 | Starting components...
+2026-04-14 16:23:02.177 | INFO     | ws_client:start:129 | Starting WebSocket client...
+2026-04-14 16:23:02.177 | INFO     | ws_client:_run_connection:92 | Connecting to wss://stream.bybit.com/v5/public/linear...
+2026-04-14 16:23:02.346 | INFO     | ws_client:_run_connection:100 | WebSocket connected
+2026-04-14 16:23:02.346 | INFO     | ws_client:_send_subscribe:44 | Subscribed to channels: orderbook.50.BTCUSDT, publicTrade.BTCUSDT
+2026-04-14 16:23:02.352 | INFO     | ws_client:_handle_message:59 | Subscription confirmed
+2026-04-14 16:23:04.178 | INFO     | __main__:_run:215 | All components started
+2026-04-14 16:23:04.178 | INFO     | __main__:_run:216 | 🌐 Web interface available at http://0.0.0.0:8000
+2026-04-14 16:23:04.179 | INFO     | __main__:_run:217 | Monitoring for anomalies...
+2026-04-14 16:23:04.179 | INFO     | __main__:_ws_consumer:76 | WebSocket consumer started
+2026-04-14 16:23:04.182 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BEARISH: $61,172.42 USDT delta with only 0.001% price move
+2026-04-14 16:23:04.182 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BEARISH: $61,097.18 USDT delta with only 0.001% price move
+2026-04-14 16:23:04.182 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BEARISH: $61,172.42 USDT delta with only 0.001% price move
+2026-04-14 16:23:04.183 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BEARISH: $59,592.32 USDT delta with only 0.001% price move
+2026-04-14 16:23:04.183 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BEARISH: $59,517.08 USDT delta with only 0.001% price move
+2026-04-14 16:23:04.183 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BEARISH: $59,291.35 USDT delta with only 0.001% price move
+2026-04-14 16:23:04.183 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BEARISH: $59,140.86 USDT delta with only 0.001% price move
+2026-04-14 16:23:04.183 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BEARISH: $59,065.62 USDT delta with only 0.001% price move
+2026-04-14 16:23:04.184 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BEARISH: $58,990.38 USDT delta with only 0.002% price move
+2026-04-14 16:23:04.184 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BEARISH: $58,915.13 USDT delta with only 0.002% price move
+2026-04-14 16:23:04.184 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BEARISH: $58,839.89 USDT delta with only 0.002% price move
+2026-04-14 16:23:04.184 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BEARISH: $58,764.64 USDT delta with only 0.003% price move
+2026-04-14 16:23:04.184 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BEARISH: $58,689.40 USDT delta with only 0.003% price move
+2026-04-14 16:23:04.184 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BEARISH: $58,614.16 USDT delta with only 0.003% price move
+2026-04-14 16:23:04.185 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BEARISH: $58,538.91 USDT delta with only 0.003% price move
+2026-04-14 16:23:04.185 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BEARISH: $58,313.18 USDT delta with only 0.003% price move
+2026-04-14 16:23:04.185 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BEARISH: $58,087.44 USDT delta with only 0.003% price move
+2026-04-14 16:23:04.185 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BEARISH: $58,012.20 USDT delta with only 0.004% price move
+2026-04-14 16:23:04.185 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BEARISH: $57,861.71 USDT delta with only 0.005% price move
+2026-04-14 16:23:04.186 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BEARISH: $57,786.46 USDT delta with only 0.005% price move
+2026-04-14 16:23:04.186 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BEARISH: $57,711.21 USDT delta with only 0.005% price move
+2026-04-14 16:23:04.186 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BEARISH: $57,635.97 USDT delta with only 0.005% price move
+2026-04-14 16:23:04.186 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BEARISH: $50,111.37 USDT delta with only 0.005% price move
+2026-04-14 16:23:04.187 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BEARISH: $50,186.61 USDT delta with only 0.005% price move
+2026-04-14 16:23:04.187 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BEARISH: $50,261.86 USDT delta with only 0.005% price move
+2026-04-14 16:23:04.187 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BEARISH: $50,186.61 USDT delta with only 0.005% price move
+2026-04-14 16:23:04.187 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BEARISH: $50,111.37 USDT delta with only 0.005% price move
+2026-04-14 16:23:04.194 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BEARISH: $50,036.12 USDT delta with only 0.005% price move
+2026-04-14 16:23:04.195 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BEARISH: $50,562.87 USDT delta with only 0.007% price move
+2026-04-14 16:23:04.200 | INFO     | __main__:_alerter_consumer:135 | Alert consumer started
+2026-04-14 16:23:04.200 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BEARISH: $61,172.42 USDT delta with only 0.001% price move
+2026-04-14 16:23:04.200 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BEARISH: $61,097.18 USDT delta with only 0.001% price move
+2026-04-14 16:23:04.200 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BEARISH: $61,172.42 USDT delta with only 0.001% price move
+2026-04-14 16:23:04.200 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BEARISH: $59,592.32 USDT delta with only 0.001% price move
+2026-04-14 16:23:04.200 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BEARISH: $59,517.08 USDT delta with only 0.001% price move
+2026-04-14 16:23:04.201 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BEARISH: $59,291.35 USDT delta with only 0.001% price move
+2026-04-14 16:23:04.201 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BEARISH: $59,140.86 USDT delta with only 0.001% price move
+2026-04-14 16:23:04.201 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BEARISH: $59,065.62 USDT delta with only 0.001% price move
+2026-04-14 16:23:04.201 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BEARISH: $58,990.38 USDT delta with only 0.002% price move
+2026-04-14 16:23:04.201 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BEARISH: $58,915.13 USDT delta with only 0.002% price move
+2026-04-14 16:23:04.201 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BEARISH: $58,839.89 USDT delta with only 0.002% price move
+2026-04-14 16:23:04.201 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BEARISH: $58,764.64 USDT delta with only 0.003% price move
+2026-04-14 16:23:04.201 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BEARISH: $58,689.40 USDT delta with only 0.003% price move
+2026-04-14 16:23:04.201 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BEARISH: $58,614.16 USDT delta with only 0.003% price move
+2026-04-14 16:23:04.202 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BEARISH: $58,538.91 USDT delta with only 0.003% price move
+2026-04-14 16:23:04.202 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BEARISH: $58,313.18 USDT delta with only 0.003% price move
+2026-04-14 16:23:04.202 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BEARISH: $58,087.44 USDT delta with only 0.003% price move
+2026-04-14 16:23:04.202 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BEARISH: $58,012.20 USDT delta with only 0.004% price move
+2026-04-14 16:23:04.202 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BEARISH: $57,861.71 USDT delta with only 0.005% price move
+2026-04-14 16:23:04.202 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BEARISH: $57,786.46 USDT delta with only 0.005% price move
+2026-04-14 16:23:04.203 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BEARISH: $57,711.21 USDT delta with only 0.005% price move
+2026-04-14 16:23:04.203 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BEARISH: $57,635.97 USDT delta with only 0.005% price move
+2026-04-14 16:23:04.203 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BEARISH: $50,111.37 USDT delta with only 0.005% price move
+2026-04-14 16:23:04.203 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BEARISH: $50,186.61 USDT delta with only 0.005% price move
+2026-04-14 16:23:04.203 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BEARISH: $50,261.86 USDT delta with only 0.005% price move
+2026-04-14 16:23:04.203 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BEARISH: $50,186.61 USDT delta with only 0.005% price move
+2026-04-14 16:23:04.203 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BEARISH: $50,111.37 USDT delta with only 0.005% price move
+2026-04-14 16:23:04.204 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BEARISH: $50,036.12 USDT delta with only 0.005% price move
+2026-04-14 16:23:04.204 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BEARISH: $50,562.87 USDT delta with only 0.007% price move
+2026-04-14 16:23:04.294 | INFO     | web_api:run_server:534 | Starting web server on http://0.0.0.0:8000
+2026-04-14 16:23:05.315 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $53,280.47 USDT delta with only 0.011% price move
+2026-04-14 16:23:05.315 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $53,280.47 USDT delta with only 0.011% price move
+2026-04-14 16:23:05.323 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $53,430.97 USDT delta with only 0.011% price move
+2026-04-14 16:23:05.323 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $53,430.97 USDT delta with only 0.011% price move
+2026-04-14 16:23:05.330 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $137,410.42 USDT delta with only 0.011% price move
+2026-04-14 16:23:05.331 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $137,485.67 USDT delta with only 0.011% price move
+2026-04-14 16:23:05.331 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $138,087.67 USDT delta with only 0.011% price move
+2026-04-14 16:23:05.331 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $137,410.42 USDT delta with only 0.011% price move
+2026-04-14 16:23:05.331 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $137,485.67 USDT delta with only 0.011% price move
+2026-04-14 16:23:05.331 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $138,087.67 USDT delta with only 0.011% price move
+2026-04-14 16:23:05.332 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $138,162.92 USDT delta with only 0.011% price move
+2026-04-14 16:23:05.333 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $138,238.18 USDT delta with only 0.012% price move
+2026-04-14 16:23:05.333 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $138,162.92 USDT delta with only 0.011% price move
+2026-04-14 16:23:05.333 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $138,238.18 USDT delta with only 0.012% price move
+2026-04-14 16:23:05.347 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $138,990.70 USDT delta with only 0.013% price move
+2026-04-14 16:23:05.348 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $139,743.22 USDT delta with only 0.013% price move
+2026-04-14 16:23:05.348 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $139,818.47 USDT delta with only 0.013% price move
+2026-04-14 16:23:05.348 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $139,893.72 USDT delta with only 0.013% price move
+2026-04-14 16:23:05.348 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $139,968.97 USDT delta with only 0.013% price move
+2026-04-14 16:23:05.348 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $140,044.23 USDT delta with only 0.014% price move
+2026-04-14 16:23:05.348 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $140,119.48 USDT delta with only 0.014% price move
+2026-04-14 16:23:05.349 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $140,194.73 USDT delta with only 0.015% price move
+2026-04-14 16:23:05.349 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $140,269.99 USDT delta with only 0.016% price move
+2026-04-14 16:23:05.349 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $140,345.24 USDT delta with only 0.016% price move
+2026-04-14 16:23:05.349 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $140,495.75 USDT delta with only 0.016% price move
+2026-04-14 16:23:05.350 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $140,947.28 USDT delta with only 0.017% price move
+2026-04-14 16:23:05.350 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $142,076.10 USDT delta with only 0.017% price move
+2026-04-14 16:23:05.350 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $142,753.40 USDT delta with only 0.017% price move
+2026-04-14 16:23:05.350 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $138,990.70 USDT delta with only 0.013% price move
+2026-04-14 16:23:05.350 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $139,743.22 USDT delta with only 0.013% price move
+2026-04-14 16:23:05.350 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $139,818.47 USDT delta with only 0.013% price move
+2026-04-14 16:23:05.350 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $139,893.72 USDT delta with only 0.013% price move
+2026-04-14 16:23:05.350 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $139,968.97 USDT delta with only 0.013% price move
+2026-04-14 16:23:05.350 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $140,044.23 USDT delta with only 0.014% price move
+2026-04-14 16:23:05.351 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $140,119.48 USDT delta with only 0.014% price move
+2026-04-14 16:23:05.351 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $140,194.73 USDT delta with only 0.015% price move
+2026-04-14 16:23:05.351 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $140,269.99 USDT delta with only 0.016% price move
+2026-04-14 16:23:05.351 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $140,345.24 USDT delta with only 0.016% price move
+2026-04-14 16:23:05.351 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $140,495.75 USDT delta with only 0.016% price move
+2026-04-14 16:23:05.351 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $140,947.28 USDT delta with only 0.017% price move
+2026-04-14 16:23:05.351 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $142,076.10 USDT delta with only 0.017% price move
+2026-04-14 16:23:05.351 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $142,753.40 USDT delta with only 0.017% price move
+2026-04-14 16:23:05.363 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $142,828.65 USDT delta with only 0.017% price move
+2026-04-14 16:23:05.363 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $143,581.20 USDT delta with only 0.017% price move
+2026-04-14 16:23:05.363 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $142,828.65 USDT delta with only 0.017% price move
+2026-04-14 16:23:05.363 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $143,581.20 USDT delta with only 0.017% price move
+2026-04-14 16:23:05.368 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $143,656.46 USDT delta with only 0.017% price move
+2026-04-14 16:23:05.368 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $143,731.71 USDT delta with only 0.017% price move
+2026-04-14 16:23:05.373 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $143,806.97 USDT delta with only 0.017% price move
+2026-04-14 16:23:05.373 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $143,882.22 USDT delta with only 0.018% price move
+2026-04-14 16:23:05.373 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $143,656.46 USDT delta with only 0.017% price move
+2026-04-14 16:23:05.373 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $143,731.71 USDT delta with only 0.017% price move
+2026-04-14 16:23:05.373 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $143,806.97 USDT delta with only 0.017% price move
+2026-04-14 16:23:05.373 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $143,882.22 USDT delta with only 0.018% price move
+2026-04-14 16:23:05.397 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $143,957.48 USDT delta with only 0.018% price move
+2026-04-14 16:23:05.398 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $144,032.73 USDT delta with only 0.018% price move
+2026-04-14 16:23:05.398 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $144,107.99 USDT delta with only 0.019% price move
+2026-04-14 16:23:05.398 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $144,183.25 USDT delta with only 0.019% price move
+2026-04-14 16:23:05.398 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $143,957.48 USDT delta with only 0.018% price move
+2026-04-14 16:23:05.399 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $144,032.73 USDT delta with only 0.018% price move
+2026-04-14 16:23:05.399 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $144,107.99 USDT delta with only 0.019% price move
+2026-04-14 16:23:05.399 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $144,183.25 USDT delta with only 0.019% price move
+2026-04-14 16:23:05.597 | INFO     | detector:process_trade:389 | Divergence alert: Volume Delta BULLISH: $144,032.73 USDT delta with only 0.020% price move
+2026-04-14 16:23:05.597 | INFO     | __main__:_alerter_consumer:151 | 🚨 Alert published: DIVERGENCE - Volume Delta BULLISH: $144,032.73 USDT delta with only 0.020% price move
+2026-04-14 16:23:05.800 | INFO     | __main__:signal_handler:265 | Received signal SIGTERM
+2026-04-14 16:23:05.800 | INFO     | __main__:shutdown:226 | Initiating graceful shutdown...
+2026-04-14 16:23:05.800 | INFO     | ws_client:stop:134 | Stopping WebSocket client...
+2026-04-14 16:23:05.800 | INFO     | __main__:_run:222 | Shutdown signal received
+2026-04-14 16:23:05.801 | INFO     | __main__:_ws_consumer:125 | WebSocket consumer cancelled
+2026-04-14 16:23:05.801 | INFO     | __main__:_ws_consumer:131 | WebSocket consumer stopped
+2026-04-14 16:23:05.801 | INFO     | __main__:_alerter_consumer:154 | Alert consumer cancelled
+2026-04-14 16:23:05.801 | INFO     | __main__:_alerter_consumer:160 | Alert consumer stopped
+2026-04-14 16:23:05.804 | INFO     | __main__:run:286 | Event loop closed

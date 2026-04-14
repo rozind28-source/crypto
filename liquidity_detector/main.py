@@ -2,9 +2,11 @@
 Main entry point for the Liquidity Detector application.
 Orchestrates all components and handles graceful shutdown.
 Now includes a web interface instead of Telegram alerts.
+Fixed for Windows compatibility (no signal handlers on Win32).
 """
 import asyncio
 import signal
+import sys
 from datetime import datetime
 from typing import List, Optional
 from urllib.parse import parse_qs
@@ -253,20 +255,27 @@ class LiquidityDetector:
         logger.info("=" * 60)
     
     def run(self) -> None:
-        """Start the application and handle signals."""
+        """Start the application and handle signals (Windows compatible)."""
         self._setup_logging()
         
         # Create event loop
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         
-        # Setup signal handlers
-        def signal_handler(sig):
-            logger.info(f"Received signal {sig.name}")
-            loop.create_task(self.shutdown())
-        
-        for sig in (signal.SIGINT, signal.SIGTERM):
-            loop.add_signal_handler(sig, lambda s=sig: signal_handler(s))
+        # Setup signal handlers only on Unix-like systems
+        # Windows does not support add_signal_handler for SIGINT/SIGTERM in asyncio
+        if sys.platform != "win32":
+            def signal_handler(sig):
+                logger.info(f"Received signal {sig.name}")
+                loop.create_task(self.shutdown())
+            
+            for sig in (signal.SIGINT, signal.SIGTERM):
+                try:
+                    loop.add_signal_handler(sig, lambda s=sig: signal_handler(s))
+                except NotImplementedError:
+                    logger.warning(f"Signal handler for {sig.name} not available on this platform")
+        else:
+            logger.info("Running on Windows - using KeyboardInterrupt for shutdown")
         
         try:
             # Run main application
@@ -288,8 +297,6 @@ class LiquidityDetector:
 
 def main():
     """Entry point - parses URL query params for symbol selection."""
-    import sys
-    
     # Default symbol
     symbol = "BTCUSDT"
     
