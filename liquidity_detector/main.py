@@ -1,19 +1,21 @@
 """
 Main entry point for the Liquidity Detector application.
 Orchestrates all components and handles graceful shutdown.
+Now includes a web interface instead of Telegram alerts.
 """
 import asyncio
 import signal
 from datetime import datetime
 from typing import List, Optional
+from urllib.parse import parse_qs
 
 from loguru import logger
 
-from config import config
+from config import config, Config
 from ws_client import BybitWSClient
 from normalizer import Normalizer, Trade, NormalizedOrderBook
 from detector import AnomalyDetector
-from alerter import TelegramAlerter, alerter_worker
+from web_api import create_api, run_server, WebAPI
 
 
 class LiquidityDetector:
@@ -24,15 +26,16 @@ class LiquidityDetector:
     - WebSocket client for market data
     - Normalizer for data parsing
     - Detector for anomaly detection
-    - Alerter for Telegram notifications
+    - Web API for real-time interface
     """
     
-    def __init__(self):
-        self.config = config
+    def __init__(self, symbol: str = "BTCUSDT"):
+        # Create config with specified symbol
+        self.config = Config(SYMBOL=symbol)
         self.ws_client = BybitWSClient(self.config)
         self.normalizer = Normalizer()
         self.detector = AnomalyDetector(self.config)
-        self.alerter = TelegramAlerter(self.config)
+        self.web_api: Optional[WebAPI] = None
         
         # Shutdown coordination
         self._shutdown_event = asyncio.Event()
@@ -92,6 +95,14 @@ class LiquidityDetector:
                     orderbook = self.normalizer.parse_orderbook(raw_data, received_at)
                     if orderbook:
                         await self.detector.process_orderbook(orderbook)
+                        
+                        # Update web API with latest orderbook data
+                        if self.web_api and orderbook.bids and orderbook.asks:
+                            await self.web_api.update_market_data(
+                                best_bid=orderbook.bids[0].price,
+                                best_ask=orderbook.asks[0].price,
+                                mid_price=(orderbook.bids[0].price + orderbook.asks[0].price) / 2
+                            )
                 
                 elif msg_type == "trade":
                     # Parse each trade in the batch
@@ -99,6 +110,13 @@ class LiquidityDetector:
                         trade = self.normalizer.parse_trade(trade_data, received_at)
                         if trade:
                             await self.detector.process_trade(trade)
+                            
+                            # Update web API with latest trade data
+                            if self.web_api:
+                                await self.web_api.update_market_data(
+                                    last_trade_price=trade.price,
+                                    last_trade_size=trade.size
+                                )
                 
                 else:
                     logger.debug(f"Unknown message type: {msg_type}")
@@ -113,12 +131,33 @@ class LiquidityDetector:
         logger.info("WebSocket consumer stopped")
     
     async def _alerter_consumer(self) -> None:
-        """Run the alerter worker to send alerts to Telegram."""
-        await alerter_worker(
-            self.alerter,
-            self.detector.alert_queue,
-            self._shutdown_event
-        )
+        """Run the alerter worker to send alerts to web interface."""
+        logger.info("Alert consumer started")
+        
+        while not self._shutdown_event.is_set():
+            try:
+                # Get alert with timeout to check shutdown
+                try:
+                    alert = await asyncio.wait_for(
+                        self.detector.alert_queue.get(),
+                        timeout=1.0
+                    )
+                except asyncio.TimeoutError:
+                    continue
+                
+                # Publish to web API
+                if self.web_api:
+                    await self.web_api.publish_alert(alert)
+                    logger.info(f"🚨 Alert published: {alert.anomaly_type} - {alert.message}")
+                
+            except asyncio.CancelledError:
+                logger.info("Alert consumer cancelled")
+                break
+            except Exception as e:
+                logger.error(f"Error in alert consumer: {e}")
+                await asyncio.sleep(0.1)
+        
+        logger.info("Alert consumer stopped")
     
     async def _run(self) -> None:
         """Main run loop - starts all components."""
@@ -135,16 +174,9 @@ class LiquidityDetector:
         logger.info(f"Spoof Lifetime: {self.config.SPOOF_LIFETIME_SEC}s")
         logger.info("=" * 60)
         
-        # Send test message to verify Telegram configuration
-        try:
-            logger.info("Sending test message to Telegram...")
-            test_sent = await self.alerter.send_test_message()
-            if test_sent:
-                logger.info("✅ Telegram configured successfully")
-            else:
-                logger.warning("⚠️ Failed to send test message - check Telegram credentials")
-        except Exception as e:
-            logger.warning(f"⚠️ Telegram test failed: {e}")
+        # Create and configure web API
+        self.web_api = create_api(self.config)
+        self.web_api.set_detector(self.detector)
         
         # Start tasks
         logger.info("Starting components...")
@@ -166,14 +198,22 @@ class LiquidityDetector:
         )
         self._tasks.append(consumer_task)
         
-        # Task 3: Alert sender
+        # Task 3: Alert sender to web
         alerter_task = asyncio.create_task(
             self._alerter_consumer(),
             name="alerter"
         )
         self._tasks.append(alerter_task)
         
+        # Task 4: Web server
+        web_task = asyncio.create_task(
+            run_server(self.config, self.web_api),
+            name="web_server"
+        )
+        self._tasks.append(web_task)
+        
         logger.info("All components started")
+        logger.info(f"🌐 Web interface available at http://{self.config.WEB_HOST}:{self.config.WEB_PORT}")
         logger.info("Monitoring for anomalies...")
         
         # Wait for shutdown signal
@@ -208,9 +248,6 @@ class LiquidityDetector:
                     logger.error(f"Task '{task_name}' raised exception: {result}")
                 else:
                     logger.info(f"Task '{task_name}' completed")
-        
-        # Close alerter HTTP client
-        await self.alerter.close()
         
         logger.info("Exited cleanly")
         logger.info("=" * 60)
@@ -250,8 +287,22 @@ class LiquidityDetector:
 
 
 def main():
-    """Entry point."""
-    detector = LiquidityDetector()
+    """Entry point - parses URL query params for symbol selection."""
+    import sys
+    
+    # Default symbol
+    symbol = "BTCUSDT"
+    
+    # Check command line args for symbol
+    if len(sys.argv) > 1:
+        for arg in sys.argv[1:]:
+            if arg.startswith("--symbol="):
+                symbol = arg.split("=")[1].upper()
+            elif arg.startswith("?symbol="):
+                symbol = arg.split("=")[1].upper()
+    
+    logger.info(f"Starting Liquidity Detector for {symbol}")
+    detector = LiquidityDetector(symbol=symbol)
     detector.run()
 
 

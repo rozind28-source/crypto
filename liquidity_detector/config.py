@@ -4,7 +4,7 @@ Reads environment variables from .env file.
 """
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field, field_validator
-from typing import Literal
+from typing import Literal, Optional
 
 
 class Config(BaseSettings):
@@ -57,15 +57,19 @@ class Config(BaseSettings):
         description="Maximum lifetime in seconds for a spoofed order"
     )
     
-    # Telegram settings
-    TELEGRAM_BOT_TOKEN: str = Field(
-        ...,
-        description="Telegram bot token for sending alerts"
+    # Telegram settings (optional - not used in web interface version)
+    TELEGRAM_BOT_TOKEN: Optional[str] = Field(
+        default=None,
+        description="Telegram bot token for sending alerts (not used in web version)"
     )
-    TELEGRAM_CHAT_ID: str = Field(
-        ...,
-        description="Telegram chat ID to receive alerts"
+    TELEGRAM_CHAT_ID: Optional[str] = Field(
+        default=None,
+        description="Telegram chat ID to receive alerts (not used in web version)"
     )
+    
+    # Web server settings
+    WEB_HOST: str = Field(default="0.0.0.0", description="Web server host")
+    WEB_PORT: int = Field(default=8000, ge=1, le=65535, description="Web server port")
     
     @field_validator("BYBIT_WS_URL")
     @classmethod
