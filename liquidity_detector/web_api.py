@@ -73,11 +73,18 @@ class WebAPI:
         # Reference to detector for accessing internal state
         self._detector = None
         
+        # Callback for symbol change
+        self._on_symbol_change = None
+        
         self._setup_routes()
     
     def set_detector(self, detector) -> None:
         """Set reference to detector for accessing internal state."""
         self._detector = detector
+    
+    def set_symbol_change_callback(self, callback) -> None:
+        """Set callback function for handling symbol changes."""
+        self._on_symbol_change = callback
     
     def _setup_routes(self) -> None:
         """Configure FastAPI routes."""
@@ -114,6 +121,27 @@ class WebAPI:
                     "MATICUSDT", "DOTUSDT", "LTCUSDT", "ATOMUSDT", "UNIUSDT"
                 ]
             }
+        
+        @self.app.post("/api/symbol")
+        async def set_symbol(symbol_data: Dict[str, str]):
+            """Change the current trading symbol."""
+            new_symbol = symbol_data.get("symbol", "").upper()
+            if not new_symbol:
+                raise HTTPException(status_code=400, detail="Symbol is required")
+            
+            # Validate symbol format
+            if not new_symbol.endswith("USDT"):
+                raise HTTPException(status_code=400, detail="Symbol must end with USDT")
+            
+            # Update config and restart detector via callback
+            if self._on_symbol_change:
+                await self._on_symbol_change(new_symbol)
+            
+            self.config.SYMBOL = new_symbol
+            self._market_data["symbol"] = new_symbol
+            
+            logger.info(f"Symbol changed to {new_symbol}")
+            return {"status": "success", "symbol": new_symbol}
         
         @self.app.websocket("/ws")
         async def websocket_endpoint(websocket: WebSocket):
@@ -390,8 +418,34 @@ class WebAPI:
             const select = document.getElementById('symbolSelect');
             const newSymbol = select.value;
             if (newSymbol && newSymbol !== currentSymbol) {
-                // Reload page with new symbol
-                window.location.href = `/?symbol=${newSymbol}`;
+                // Call API to change symbol without page reload
+                fetch('/api/symbol', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ symbol: newSymbol })
+                })
+                .then(async resp => {
+                    if (!resp.ok) {
+                        const err = await resp.json();
+                        throw new Error(err.detail || 'Failed to change symbol');
+                    }
+                    return resp.json();
+                })
+                .then(data => {
+                    console.log('Symbol changed:', data);
+                    currentSymbol = data.symbol;
+                    // Clear alerts and reset UI for new symbol
+                    document.getElementById('alertsContainer').innerHTML = '<div class="no-alerts">Waiting for anomalies...</div>';
+                    updateMarketData({
+                        best_bid: null, best_ask: null, mid_price: null,
+                        last_trade_price: null, delta_value: null,
+                        window_trades_count: 0, tracked_orders_count: 0
+                    });
+                })
+                .catch(err => {
+                    console.error('Error changing symbol:', err);
+                    alert('Error: ' + err.message);
+                });
             }
         }
         

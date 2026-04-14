@@ -42,6 +42,51 @@ class LiquidityDetector:
         # Shutdown coordination
         self._shutdown_event = asyncio.Event()
         self._tasks: List[asyncio.Task] = []
+        
+        # Current symbol for dynamic switching
+        self._current_symbol = symbol
+    
+    async def switch_symbol(self, new_symbol: str) -> None:
+        """Dynamically switch to a new trading symbol."""
+        if new_symbol == self._current_symbol:
+            return
+        
+        logger.info(f"Switching symbol from {self._current_symbol} to {new_symbol}")
+        
+        # Stop current WebSocket client
+        self.ws_client.stop()
+        
+        # Wait a bit for cleanup
+        await asyncio.sleep(0.5)
+        
+        # Update config and recreate components
+        self._current_symbol = new_symbol
+        self.config.SYMBOL = new_symbol
+        
+        # Recreate WS client and detector for new symbol
+        self.ws_client = BybitWSClient(self.config)
+        self.detector = AnomalyDetector(self.config)
+        
+        # Update web API references
+        if self.web_api:
+            self.web_api.config.SYMBOL = new_symbol
+            self.web_api.set_detector(self.detector)
+        
+        # Restart WebSocket connection
+        ws_task = asyncio.create_task(
+            self.ws_client.start(),
+            name="websocket"
+        )
+        
+        # Replace old WS task
+        for i, task in enumerate(self._tasks):
+            if task.get_name() == "websocket":
+                if not task.done():
+                    task.cancel()
+                self._tasks[i] = ws_task
+                break
+        
+        logger.info(f"Symbol switched to {new_symbol}")
     
     def _setup_logging(self) -> None:
         """Configure loguru logging."""
@@ -179,6 +224,9 @@ class LiquidityDetector:
         # Create and configure web API
         self.web_api = create_api(self.config)
         self.web_api.set_detector(self.detector)
+        
+        # Register symbol change callback
+        self.web_api.set_symbol_change_callback(self.switch_symbol)
         
         # Start tasks
         logger.info("Starting components...")
